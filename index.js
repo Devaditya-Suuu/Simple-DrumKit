@@ -1,80 +1,42 @@
-// we can use this method for action or we can use an anornimous function to perform actions
+let drums = document.querySelectorAll(".drum");
 
-// document.querySelector(".drum").addEventListener('click', handelclicks)
-// function handelclicks(){
-//     alert("click initiallised");
-// }
-
-// ------------or---------------
-
-// we can make use of an anornimous function to perform action
-// document.querySelector(".drum").addEventListener('click', function () {
-//     alert("click initiallised");
-// });
-
-// now the real code
-
-let n = document.querySelectorAll(".drum").length;
-let i = 0;
-
-while(i<n){
-    document.querySelectorAll(".drum")[i].addEventListener('click', function () {
-        let key = this.innerHTML;
-        makesound(key);
-        btnAnimation(key);
-    });
-
-    i++;
+function handleEvent(event) {
+    let key = this.innerHTML || event.key;
+    makesound(key);
+    btnAnimation(key);
 }
 
-document.addEventListener("keypress", function(event){
-    let keys = event.key;
-    makesound(keys);
-    btnAnimation(keys);
-    
-})
+drums.forEach(drum => {
+    drum.addEventListener('click', handleEvent);
+    drum.addEventListener('touchstart', handleEvent);
+});
 
-function makesound(key){
-    switch(key) {
-        case "w":  
-            var tom1 = new Audio("sounds/tom-1.mp3");
-            tom1.play();
-            break;
-        case "a":
-            var tom2 = new Audio("sounds/tom-2.mp3");
-            tom2.play();
-            break;
-        case "s":
-            var tom3 = new Audio("sounds/tom-3.mp3");
-            tom3.play();
-            break;
-        case "d":
-            var tom4 = new Audio("sounds/tom-4.mp3");
-            tom4.play();
-            break;
-        case "j":
-            var snare = new Audio("sounds/snare.mp3");
-            snare.play();
-            break;
-        case "k":
-            var crash = new Audio("sounds/crash.mp3");
-            crash.play();
-            break;
-        case "l":
-            var kick = new Audio("sounds/kick-bass.mp3");
-            kick.play();
-            break;
-        default:
-          // code block
-      }
+document.addEventListener("keypress", function(event) {
+    makesound(event.key);
+    btnAnimation(event.key);
+});
+
+function makesound(key) {
+    const soundMap = {
+        "w": "sounds/tom-1.mp3",
+        "a": "sounds/tom-2.mp3",
+        "s": "sounds/tom-3.mp3",
+        "d": "sounds/tom-4.mp3",
+        "j": "sounds/snare.mp3",
+        "k": "sounds/crash.mp3",
+        "l": "sounds/kick-bass.mp3"
+    };
+
+    if (soundMap[key]) {
+        const audio = new Audio(soundMap[key]);
+        audio.play();
+    }
 }
 
-function btnAnimation(currentkey){
-    var activeBtn = document.querySelector("."+currentkey);
-
-    activeBtn.classList.add("pressed");
-    
-    setTimeout(function(){
-        activeBtn.classList.remove("pressed");
-    }, 50)
+function btnAnimation(currentKey) {
+    let activeBtn = document.querySelector("." + currentKey);
+    if (activeBtn) {
+        activeBtn.classList.add("pressed");
+        setTimeout(() => activeBtn.classList.remove("pressed"), 50);
+    }
 }
