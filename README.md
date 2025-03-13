@@ -56,7 +56,7 @@ Drum-Kit/
 - When hosted on GitHub, users may experience a **slight delay in sound playback on mobile devices**. This is due to hosting limitations. The delay is minimal when run locally.
 
 ## 📌 Live Demo
-[Drum Kit Live Demo](https://yourusername.github.io/drum-kit/)
+[Drum Kit Live Demo](https://devaditya-suuu.github.io/Simple-DrumKit/)
 
 ## 🛤️ Future Improvements
 - Add more drum sounds.
